@@ -1,0 +1,106 @@
+#%RAML 1.0
+title: banking-api
+
+protocols: [HTTP,HTTPS]
+
+traits:
+  errorresponse: !include /traits/errortrait.raml
+
+securitySchemes:
+  securityCustomerScheme: !include securtiy-scheme/customSecurityScheme.raml
+
+securedBy:
+  -   securityCustomerScheme
+
+uses:
+  custType: libraries/customerlibrary.raml
+
+/accounts:
+  post:
+    is: [errorresponse]
+    description: create account for customer
+    body:
+      application/json:
+        example: !include examples/account.json
+    responses:
+      201:
+        body:
+          application/json:
+            example: !include examples/accountResp.json                                   
+                                                                      
+          
+    
+  get:
+    is: [errorresponse]
+    description: Fetch account on basis on customer id
+    queryParameters:
+      customerId:
+        type: string
+        required: true
+        example: "cust12345"
+    responses:
+      200:
+        body:
+          application/json:
+            example: !include examples/account.json     
+             
+  /{accountId}:
+    get:
+      description: Fetch single account
+      responses:
+        200:
+          body:
+            application/json:
+              example: !include examples/account.json              
+                
+
+    /balances:
+      get:
+        description: Fetch Balances
+        responses:
+          200:
+            body:
+              application/json:
+                example: !include examples/balances.json
+
+    /transactions:
+      get:
+        description:
+        queryParameters:
+            fromdate:
+              type: string
+              required: false
+              example: "2020-09-01"
+            todate:
+              type: string
+              required: false
+              example: "2020-09-21"
+        responses:
+          200:
+            body:
+              application/json:
+                example: !include examples/transaction.json                 
+                         
+      /{transactionID}:         
+        get:
+          description: Fetch single transaction
+          responses:
+            200:
+              body:
+                application/json:
+                  example: !include examples/transaction.json   
+
+/customers:
+  get:
+    is: [errorresponse]
+    description: Fetch all customers
+    responses:
+      200:
+        body:
+          application/json:
+            type: custType.CustomerType[] 
+   
+
+                    
+        
+  

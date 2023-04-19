@@ -1,0 +1,14 @@
+vars:
+    http_port: 90
+    max_clients: 250
+
+remote_user: root
+
+tasks:
+  - name: ensure apache is at the latest version
+    yum:
+      name: httpd
+      state: latest
+tasks.name
+tasks.yum.name
+tasks.yum.state
