@@ -1,0 +1,11 @@
+%dw 2.0
+
+type auto_a6027ed7_a3de_4fcf_ac34_86f536bd316d_Input_Payload = {|
+  Data: {|
+    Account: Array<{|      AccountId: String,       Status: String,       StatusUpdateDateTime: String,       Currency: String,       AccountType: String,       AccountSubType: String,       Nickname: String,       Account: Array<{|        SchemeName: String,         Identification: String,         Name: String,         SecondaryIdentification: String      |}>
+    |}>
+  |}, 
+  Links: {| Self: String |}, 
+  Meta: {| TotalPages: Number |}
+|}
+
